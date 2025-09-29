@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Presentación CRM IA para Recaudación</title>
+    <!-- Carga de Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Configuración de Tailwind para usar un tema moderno y el color primario -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary-dark': '#1e293b', // Slate-800
+                        'primary-accent': '#3b82f6', // Blue-500
+                        'secondary-accent': '#06b6d4', // Cyan-500
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        '3xl': '0 35px 60px -15px rgba(0, 0, 0, 0.3)',
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Enlace a la fuente Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <style>
+        /* Estilos generales del cuerpo */
+        body {
+            background-color: #0f172a; /* Slate-900 */
+            color: #f8fafc; /* Slate-50 */
+            font-family: 'Inter', sans-serif;
+            overflow: hidden; /* Evita barras de desplazamiento */
+        }
+
+        /* Estilo base para todas las diapositivas */
+        .slide {
+            height: 100vh;
+            width: 100vw;
+            display: none; /* Oculto por defecto */
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+            padding: 2rem;
+        }
+
+        /* Estilo para la diapositiva activa */
+        .slide.active {
+            display: flex;
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* Animación de entrada de slide */
+        .slide.entering {
+            opacity: 0;
+            transform: scale(0.95);
+        }
+        
+        /* Contenedor central de la diapositiva para limitar el ancho en desktop */
+        .slide-content {
+            max-width: 1024px;
+            width: 100%;
+        }
+
+        /* Estilo para los títulos principales */
+        .slide h1 {
+            font-weight: 800;
+            color: #ffffff;
+            line-height: 1.1;
+        }
+
+        /* Estilo para los subtítulos */
+        .slide h2 {
+            font-weight: 600;
+            color: #cbd5e1; /* Slate-300 */
+        }
+
+        /* Estilo para las listas (problemas/beneficios) */
+        .feature-list > li {
+            position: relative;
+            padding-left: 2.5rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .feature-list > li::before {
+            content: ' ';
+            position: absolute;
+            left: 0;
+            top: 0.25rem;
+            width: 0.75rem;
+            height: 0.75rem;
+            border-radius: 50%;
+            background-color: var(--bullet-color, #3b82f6); /* Default blue */
+        }
+
+        /* Estilo para los botones de navegación */
+        .nav-btn {
+            background-color: #1e293b;
+            color: #94a3b8;
+            border: 1px solid #334155;
+            transition: all 0.2s;
+        }
+        .nav-btn:hover {
+            background-color: #3b82f6;
+            color: #ffffff;
+            border-color: #3b82f6;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(59, 130, 246, 0.5);
+        }
+    </style>
+    <!-- Script para iconos de Lucide (usados en todo el diseño) -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+    <!-- Contenedor Principal de Diapositivas -->
+    <div id="presentation-container">
+
+        <!-- SLIDE 1: TÍTULO -->
+        <section id="slide-1" class="slide bg-gray-900 active">
+            <div class="slide-content text-center">
+                <div class="inline-block p-4 rounded-full bg-primary-accent shadow-3xl mb-8">
+                    <i data-lucide="brain-circuit" class="w-16 h-16 text-white"></i>
+                </div>
+                <h1 class="text-5xl sm:text-7xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-white to-primary-accent">
+                    CRM de Recaudación Hiperautomatizado con IA
+                </h1>
+                <p class="mt-6 text-xl sm:text-2xl text-slate-300 max-w-2xl mx-auto font-light">
+                    Transformando la gestión de donantes: De la fricción operativa a la ejecución instantánea por prompt.
+                </p>
+            </div>
+        </section>
+
+        <!-- SLIDE 2: PROBLEMA (Contexto) -->
+        <section id="slide-2" class="slide">
+            <div class="slide-content">
+                <h2 class="text-base font-semibold uppercase tracking-wider text-secondary-accent mb-2">1. Contexto y Problema Actual</h2>
+                <h1 class="text-4xl sm:text-5xl mb-12">
+                    La Configuración y Operación Hoy
+                </h1>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-slate-200">
+                    <div class="bg-primary-dark p-6 rounded-xl border border-slate-700 shadow-lg">
+                        <i data-lucide="cpu" class="w-8 h-8 text-primary-accent mb-3"></i>
+                        <h3 class="text-xl font-bold mb-2">Complejidad Operativa</h3>
+                        <p>Las Fundaciones requieren **equipo técnico** para configurar formularios, landings, DNS, y segmentaciones. Alto esfuerzo por bajo retorno.</p>
+                    </div>
+                    <div class="bg-primary-dark p-6 rounded-xl border border-slate-700 shadow-lg">
+                        <i data-lucide="handshake" class="w-8 h-8 text-secondary-accent mb-3"></i>
+                        <h3 class="text-xl font-bold mb-2">Dependencia de Terceros</h3>
+                        <p>Para ajustes críticos (hosting, DNS o correos masivos), los clientes dependen de soporte externo o de tutoriales complejos y fallidos.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 3: PROBLEMA (Fricción) -->
+        <section id="slide-3" class="slide">
+            <div class="slide-content">
+                <h2 class="text-base font-semibold uppercase tracking-wider text-secondary-accent mb-2">1. Contexto y Problema Actual</h2>
+                <h1 class="text-4xl sm:text-5xl mb-12">
+                    Fricción y Retraso en las Campañas
+                </h1>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-slate-200">
+                    <div class="bg-primary-dark p-6 rounded-xl border border-slate-700 shadow-lg">
+                        <i data-lucide="pencil-ruler" class="w-8 h-8 text-primary-accent mb-3"></i>
+                        <h3 class="text-xl font-bold mb-2">Gestión Manual</h3>
+                        <p>Crear widgets, landings y campañas es un proceso repetitivo que requiere conocimiento técnico o de diseño específico para cada ajuste.</p>
+                    </div>
+                    <div class="bg-primary-dark p-6 rounded-xl border border-slate-700 shadow-lg">
+                        <i data-lucide="clock" class="w-8 h-8 text-secondary-accent mb-3"></i>
+                        <h3 class="text-xl font-bold mb-2">Tiempos Largos de Implementación</h3>
+                        <p>Lanzar una campaña puede tardar horas o días por los múltiples pasos manuales, restando velocidad y oportunidad a la recaudación.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 4: PROPUESTA DE VALOR (Titular) -->
+        <section id="slide-4" class="slide bg-primary-dark">
+            <div class="slide-content text-center">
+                <h2 class="text-base font-semibold uppercase tracking-wider text-secondary-accent mb-4">2. Propuesta de Valor de la Nueva Plataforma</h2>
+                <h1 class="text-5xl sm:text-7xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-primary-accent to-secondary-accent">
+                    CRM Hiperautomatizado con IA
+                </h1>
+                <p class="mt-6 text-2xl text-slate-300 max-w-3xl mx-auto font-light">
+                    Convierte tareas complejas en procesos automáticos y guiados por prompts simples.
+                </p>
+            </div>
+        </section>
+
+        <!-- SLIDE 5: PROPUESTA (Generación por Prompt y DNS) -->
+        <section id="slide-5" class="slide">
+            <div class="slide-content">
+                <h2 class="text-base font-semibold uppercase tracking-wider text-secondary-accent mb-4">Diferenciador 1: Automatización Total</h2>
+                <h1 class="text-4xl sm:text-5xl mb-12">
+                    Creación de Activos y Configuración Técnica
+                </h1>
+                <ul class="feature-list space-y-4 text-xl sm:text-2xl">
+                    <li style="--bullet-color: #3b82f6;">
+                        <span class="font-bold">Generación por Prompt:</span> El cliente escribe una necesidad ("quiero una campaña de becas de educación con tarjeta y PSE") y el sistema crea el widget, landing, formularios y segmentación automáticamente.
+                    </li>
+                    <li style="--bullet-color: #06b6d4;">
+                        <span class="font-bold">Gestión Inteligente de DNS y Correos:</span> La IA se integra directamente con hostings (WIX, GoDaddy, etc.) para insertar y validar automáticamente registros SPF, DKIM, DMARC.
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- SLIDE 6: PROPUESTA (Optimización y Analítica) -->
+        <section id="slide-6" class="slide">
+            <div class="slide-content">
+                <h2 class="text-base font-semibold uppercase tracking-wider text-secondary-accent mb-4">Diferenciador 2: Rendimiento Inteligente</h2>
+                <h1 class="text-4xl sm:text-5xl mb-12">
+                    Auto-optimización y Predicción de Recaudación
+                </h1>
+                <ul class="feature-list space-y-4 text-xl sm:text-2xl">
+                    <li style="--bullet-color: #3b82f6;">
+                        <span class="font-bold">Auto-optimización de Campañas:</span> Algoritmos de IA analizan métricas de conversión en tiempo real y proponen mejoras en diseño, copywriting y segmentación.
+                    </li>
+                    <li style="--bullet-color: #06b6d4;">
+                        <span class="font-bold">Analítica Predictiva:</span> La consola no solo muestra métricas históricas, sino que ofrece predicciones de recaudación basadas en campañas, público y estacionalidad.
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- SLIDE 7: PROPUESTA (Flujos y Conversación) -->
+        <section id="slide-7" class="slide">
+            <div class="slide-content">
+                <h2 class="text-base font-semibold uppercase tracking-wider text-secondary-accent mb-4">Diferenciador 3: Integración y Flujos</h2>
+                <h1 class="text-4xl sm:text-5xl mb-12">
+                    Hiperautomatización de Flujos y Módulo Conversacional
+                </h1>
+                <ul class="feature-list space-y-4 text-xl sm:text-2xl">
+                    <li style="--bullet-color: #3b82f6;">
+                        <span class="font-bold">Hiperautomatización de Flujos:</span> Creación automática de journey de donantes. Ej: Donante no completa pago → reenvío recordatorio → propuesta de recurrencia → seguimiento automático por WhatsApp.
+                    </li>
+                    <li style="--bullet-color: #06b6d4;">
+                        <span class="font-bold">Integración Multi-canal Unificada:</span> Correos, WhatsApp, SMS y notificaciones push **coordinadas** desde la misma consola.
+                    </li>
+                    <li style="--bullet-color: #06b6d4;">
+                        <span class="font-bold">Módulo de IA Conversacional:</span> Un asistente que responde en tiempo real preguntas sobre métricas, estados de transacciones o creación de activos.
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- SLIDE 8: BENEFICIOS (Titular) -->
+        <section id="slide-8" class="slide bg-primary-dark">
+            <div class="slide-content text-center">
+                <h2 class="text-base font-semibold uppercase tracking-wider text-secondary-accent mb-4">3. Beneficios para el Cliente</h2>
+                <h1 class="text-5xl sm:text-6xl font-extrabold">
+                    El Impacto en la Operación y la Misión
+                </h1>
+            </div>
+        </section>
+
+        <!-- SLIDE 9: BENEFICIOS (Detalle) -->
+        <section id="slide-9" class="slide">
+            <div class="slide-content">
+                <h1 class="text-4xl sm:text-5xl mb-12">
+                    Resultados tangibles de la Hiperautomatización
+                </h1>
+                <div class="grid grid-cols-2 gap-6 text-center">
+                    <div class="p-6 rounded-xl bg-primary-dark border-b-4 border-primary-accent">
+                        <i data-lucide="zap" class="w-10 h-10 text-primary-accent mx-auto mb-3"></i>
+                        <p class="text-xl font-bold">Ahorro de Tiempo</p>
+                        <p class="text-sm text-slate-400">De horas de configuración a minutos gracias a la IA.</p>
+                    </div>
+                    <div class="p-6 rounded-xl bg-primary-dark border-b-4 border-secondary-accent">
+                        <i data-lucide="shield-check" class="w-10 h-10 text-secondary-accent mx-auto mb-3"></i>
+                        <p class="text-xl font-bold">Reducción de Errores</p>
+                        <p class="text-sm text-slate-400">Configuración automática y validada de DNS, hosting y correos.</p>
+                    </div>
+                    <div class="p-6 rounded-xl bg-primary-dark border-b-4 border-primary-accent">
+                        <i data-lucide="trending-up" class="w-10 h-10 text-primary-accent mx-auto mb-3"></i>
+                        <p class="text-xl font-bold">Mayor Recaudación</p>
+                        <p class="text-sm text-slate-400">Campañas optimizadas por IA aumentan la conversión.</p>
+                    </div>
+                    <div class="p-6 rounded-xl bg-primary-dark border-b-4 border-secondary-accent">
+                        <i data-lucide="hand" class="w-10 h-10 text-secondary-accent mx-auto mb-3"></i>
+                        <p class="text-xl font-bold">Democratización</p>
+                        <p class="text-sm text-slate-400">No se necesita un equipo técnico especializado.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- SLIDE 10: MODELO DE NEGOCIO (Titular) -->
+        <section id="slide-10" class="slide bg-primary-dark">
+            <div class="slide-content text-center">
+                <h2 class="text-base font-semibold uppercase tracking-wider text-secondary-accent mb-4">4. Modelo de Negocio Posible</h2>
+                <h1 class="text-5xl sm:text-6xl font-extrabold">
+                    Estructura de Precios Híbrida y Escalonada
+                </h1>
+                <p class="mt-4 text-xl text-slate-400">
+                    SaaS escalonado, con la hiperautomatización como feature premium.
+                </p>
+            </div>
+        </section>
+        
+        <!-- SLIDE 11: MODELO DE NEGOCIO (Tiers) -->
+        <section id="slide-11" class="slide">
+            <div class="slide-content">
+                <h1 class="text-4xl sm:text-5xl mb-12 text-center">
+                    Los Planes de Acceso a la IA
+                </h1>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- Básico -->
+                    <div class="p-6 rounded-xl bg-primary-dark border-t-8 border-slate-600 shadow-xl flex flex-col items-center text-center">
+                        <h3 class="text-2xl font-bold text-slate-300">Plan Básico</h3>
+                        <p class="mt-2 text-sm text-slate-400">Fundamentos de Recaudación</p>
+                        <div class="my-4 w-16 h-1 bg-slate-600"></div>
+                        <p class="text-base text-slate-200">Acceso a módulos clásicos (transacciones, personas, comunicaciones, widgets).</p>
+                    </div>
+                    <!-- Pro -->
+                    <div class="p-6 rounded-xl bg-primary-dark border-t-8 border-primary-accent shadow-xl flex flex-col items-center text-center">
+                        <h3 class="text-2xl font-bold text-primary-accent">Plan Pro</h3>
+                        <p class="mt-2 text-sm text-slate-400">IA Asistida</p>
+                        <div class="my-4 w-16 h-1 bg-primary-accent"></div>
+                        <p class="text-base text-slate-200">Automatización parcial + Generación por Prompt de widgets y landings.</p>
+                    </div>
+                    <!-- IA+ -->
+                    <div class="p-6 rounded-xl bg-primary-dark border-t-8 border-secondary-accent shadow-xl flex flex-col items-center text-center">
+                        <h3 class="text-2xl font-bold text-secondary-accent">Plan IA+ (Premium)</h3>
+                        <p class="mt-2 text-sm text-slate-400">Hiperautomatización Total</p>
+                        <div class="my-4 w-16 h-1 bg-secondary-accent"></div>
+                        <p class="text-base text-slate-200">DNS automáticos, journeys inteligentes, analítica predictiva y optimización de campañas.</p>
+                    </div>
+                </div>
+                <p class="mt-8 text-center text-lg text-slate-400">
+                    <span class="font-bold">Modelo de Cobro:</span> Suscripción mensual + % de fee sobre recaudado.
+                </p>
+            </div>
+        </section>
+
+        <!-- SLIDE 12: ARGUMENTO COMERCIAL (Resumen) -->
+        <section id="slide-12" class="slide bg-gray-900">
+            <div class="slide-content text-center">
+                <h2 class="text-base font-semibold uppercase tracking-wider text-secondary-accent mb-4">5. Argumento Comercial Resumido</h2>
+                <h1 class="text-4xl sm:text-5xl font-extrabold mb-8 text-primary-accent">
+                    La Diferencia es la Hiperautomatización
+                </h1>
+                <blockquote class="text-3xl sm:text-4xl italic font-light max-w-4xl mx-auto border-l-4 border-primary-accent pl-6 py-4">
+                    "Lo que hoy es Afrus requiere tiempo y soporte técnico; nuestro sistema lo transforma en hiperautomatización impulsada por IA. Desde un solo prompt, el cliente puede crear widgets, landings, campañas, segmentar bases de datos, configurar DNS y enviar comunicaciones multicanal optimizadas."
+                </blockquote>
+                <p class="mt-8 text-xl text-slate-300 font-semibold">
+                    Resultado: Menos tiempo de gestión, cero fricciones técnicas, y más donaciones recurrentes.
+                </p>
+            </div>
+        </section>
+        
+        <!-- SLIDE 13: CONCLUSIÓN (Resumen de Valor) -->
+        <section id="slide-13" class="slide">
+            <div class="slide-content text-center">
+                <div class="inline-block p-4 rounded-full bg-secondary-accent shadow-3xl mb-8">
+                    <i data-lucide="rocket" class="w-16 h-16 text-white"></i>
+                </div>
+                <h1 class="text-5xl sm:text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-white to-secondary-accent">
+                    CRM 3.0: Recauda más, gestiona menos.
+                </h1>
+                <p class="mt-6 text-xl sm:text-2xl text-slate-300 max-w-2xl mx-auto font-light">
+                    Hemos resuelto los cuellos de botella técnicos para que las fundaciones puedan enfocarse 100% en su misión.
+                </p>
+            </div>
+        </section>      
+    </div>
+
+    <!-- Controles de Navegación y Barra de Progreso -->
+    <div class="fixed bottom-0 left-0 w-full p-4 flex justify-center space-x-4 z-20 bg-gray-900/90 backdrop-blur-sm">
+        <button id="prev-btn" class="nav-btn px-6 py-2 rounded-full font-bold flex items-center" disabled>
+            <i data-lucide="chevron-left" class="w-5 h-5 mr-2"></i> Anterior
+        </button>
+        <div id="slide-counter" class="flex items-center text-lg font-semibold text-slate-400 select-none">
+            1 / 14
+        </div>
+        <button id="next-btn" class="nav-btn px-6 py-2 rounded-full font-bold flex items-center">
+            Siguiente <i data-lucide="chevron-right" class="w-5 h-5 ml-2"></i>
+        </button>
+    </div>
+
+    <div id="progress-bar-container" class="fixed top-0 left-0 w-full h-1 bg-slate-800 z-10">
+        <div id="progress-bar" class="h-full bg-secondary-accent transition-all duration-500 ease-out"></div>
+    </div>
+
+
+    <script>
+        // Inicializar iconos de Lucide
+        lucide.createIcons();
+
+        // 1. Setup de variables
+        const slides = document.querySelectorAll('.slide');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const slideCounter = document.getElementById('slide-counter');
+        const progressBar = document.getElementById('progress-bar');
+        let currentSlideIndex = 0;
+        const totalSlides = slides.length;
+
+        // 2. Función para actualizar la diapositiva
+        function updateSlide(newIndex) {
+            if (newIndex < 0 || newIndex >= totalSlides) {
+                return; // Fuera de rango
+            }
+
+            // Transición de salida de la diapositiva actual
+            if (slides[currentSlideIndex]) {
+                slides[currentSlideIndex].classList.remove('active');
+            }
+
+            // Actualizar índice
+            currentSlideIndex = newIndex;
+            
+            // Transición de entrada de la nueva diapositiva
+            const nextSlide = slides[currentSlideIndex];
+            nextSlide.classList.add('entering');
+            nextSlide.style.display = 'flex';
+            setTimeout(() => {
+                nextSlide.classList.remove('entering');
+                nextSlide.classList.add('active');
+            }, 50); // Pequeño retraso para que la animación se dispare
+
+            // Ocultar las diapositivas no activas para rendimiento
+            slides.forEach((slide, index) => {
+                if (index !== currentSlideIndex) {
+                    slide.style.display = 'none';
+                }
+            });
+
+            // 3. Actualizar UI (Contador, Botones, Barra de Progreso)
+            slideCounter.textContent = `${currentSlideIndex + 1} / ${totalSlides}`;
+            
+            prevBtn.disabled = currentSlideIndex === 0;
+            prevBtn.classList.toggle('opacity-50', currentSlideIndex === 0);
+            
+            nextBtn.disabled = currentSlideIndex === totalSlides - 1;
+            nextBtn.classList.toggle('opacity-50', currentSlideIndex === totalSlides - 1);
+            
+            const progress = (currentSlideIndex + 1) / totalSlides * 100;
+            progressBar.style.width = `${progress}%`;
+        }
+
+        // 4. Listeners para navegación
+        prevBtn.addEventListener('click', () => {
+            updateSlide(currentSlideIndex - 1);
+        });
+
+        nextBtn.addEventListener('click', () => {
+            updateSlide(currentSlideIndex + 1);
+        });
+
+        // 5. Navegación con teclas de flecha
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'ArrowRight' && currentSlideIndex < totalSlides - 1) {
+                updateSlide(currentSlideIndex + 1);
+            } else if (event.key === 'ArrowLeft' && currentSlideIndex > 0) {
+                updateSlide(currentSlideIndex - 1);
+            }
+        });
+
+        // 6. Inicialización al cargar la página
+        window.onload = () => {
+            updateSlide(0); // Mostrar la primera diapositiva
+        };
+
+    </script>
+</body>
+</html>
