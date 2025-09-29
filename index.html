@@ -36,7 +36,53 @@
             font-family: 'Inter', sans-serif;
             overflow: hidden; /* Evita barras de desplazamiento */
         }
-
+        @media (max-width: 640px) {
+            body {
+                overflow: auto; /* Permite scroll en móviles */
+            }
+            .slide {
+                height: auto;
+                min-height: 100vh;
+                padding: 1rem;
+            }
+            .slide-content {
+                max-width: 100%;
+                padding: 0;
+            }
+            .slide h1 {
+                font-size: 2rem !important;
+            }
+            .slide h2 {
+                font-size: 1.1rem !important;
+            }
+            .feature-list > li {
+                font-size: 1rem;
+                padding-left: 2rem;
+            }
+            .grid-cols-2, .md\:grid-cols-2, .md\:grid-cols-3 {
+                grid-template-columns: 1fr !important;
+            }
+            .p-6 {
+                padding: 1rem !important;
+            }
+            .text-4xl, .sm\:text-5xl, .text-5xl, .sm\:text-6xl, .sm\:text-7xl {
+                font-size: 2rem !important;
+            }
+            .text-2xl, .sm\:text-2xl {
+                font-size: 1.1rem !important;
+            }
+            .text-xl {
+                font-size: 1rem !important;
+            }
+            .fixed.bottom-0 {
+                position: static !important;
+                width: 100%;
+                padding: 0.5rem !important;
+            }
+            #progress-bar-container {
+                height: 0.5rem;
+            }
+        }
         /* Estilo base para todas las diapositivas */
         .slide {
             height: 100vh;
